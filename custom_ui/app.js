@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Hàm gửi tin nhắn về Python Streamlit
 function sendToStreamlit(action, payload = {}) {
     window.parent.postMessage({
+        isStreamlitMessage: true,
         type: "streamlit:setComponentValue",
         value: { action, ...payload }
     }, "*");
@@ -99,12 +100,14 @@ function initApp() {
 
     // Thông báo cho Streamlit parent là component đã sẵn sàng hoạt động (để ẩn thanh cảnh báo màu vàng)
     window.parent.postMessage({
+        isStreamlitMessage: true,
         type: "streamlit:componentReady",
         apiVersion: 1
     }, "*");
 
     // Thiết lập độ cao khung hình ban đầu cho iframe
     window.parent.postMessage({
+        isStreamlitMessage: true,
         type: "streamlit:setFrameHeight",
         height: 1000
     }, "*");
